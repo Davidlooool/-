@@ -1,21 +1,22 @@
-﻿using System;
+﻿using InTheHand.Net.Bluetooth;
 using InTheHand.Net.Sockets;
-using InTheHand.Net.Bluetooth;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ConsoleApplication1
+namespace 테스트3
 {
-    /// <summary>
-    /// 장치 이름, 페어링 유무, 연결된 장치의 MAC주소, 최근에 봤던, 최근에 쓴 정보들과 장치분류, 각종 이용가능 서비스들
-    /// </summary>
     class Program
     {
         static void Main(string[] args)
         {
-            BluetoothClient bluetoothClient = new BluetoothClient();            
+            BluetoothClient bluetoothClient = new BluetoothClient();
             var devices = bluetoothClient.DiscoverDevices();
-            
+
             Console.WriteLine("Bluetooth devices");
-            
+
             foreach (var device in devices)
             {
                 var blueToothInfo = string.Format("- DeviceName: {0}{1}  Connected: {2}{1}  Address: {3:C}{1}  Last seen: {4}{1}  Last used: {5}{1}",
@@ -27,7 +28,7 @@ namespace ConsoleApplication1
                 int rssi = device.Rssi;
                 Console.WriteLine(blueToothInfo);
                 Console.WriteLine("-------------------------");
-                Console.WriteLine("RSSI : {0}",rssi);
+                Console.WriteLine("RSSI : {0}", rssi);
                 Console.WriteLine("-------------------------");
                 DisplayBluetoothRadio();
             }
@@ -42,7 +43,7 @@ namespace ConsoleApplication1
                 return;
             }
             RadioMode mode = myRadio.Mode;
-            // Warning: LocalAddress is null if the radio is powered-off.
+            // Warning: LocalAddress is null if the radio is powered-off.            
             Console.WriteLine("* Radio, address: {0:C}", myRadio.LocalAddress);
             Console.WriteLine("Mode: " + mode.ToString());
             Console.WriteLine("Name: " + myRadio.Name);
@@ -62,3 +63,4 @@ namespace ConsoleApplication1
         }
     }
 }
+
